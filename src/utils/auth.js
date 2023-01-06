@@ -17,33 +17,12 @@ export const register = ({ email, password }) => {
       })
 };
 
-// export const authorize = ({ email, password }) => {
-//   return fetch(`${BASE_URL}/signin`, {
-//     method: "POST",
-//     headers: {
-//       Accept: "application/json",
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({ email, password }),
-//   })
-//     .then((res) => res.json())
-//     .then((res) => {
-//       console.log(res);
-//         if (res.token) {
-//           console.log(res.token)
-//         localStorage.setItem("token", res.token);
-//         return res;
-//       } else {
-//         return;
-//       }
-//     });
-// };
 
 export const authorize = ({ email, password }) => {
   return fetch(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {
-      Accept: "application/json",
+      'Accept': "application/json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),

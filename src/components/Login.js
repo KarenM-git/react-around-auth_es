@@ -23,10 +23,10 @@ function Login({ onSubmit, setIsLoggedIn }) {
     onSubmit(values);
   };
 
-  React.useEffect(() => {
-       setIsLoggedIn(true);
-       history.push("/");
-     }, [values]);
+  // React.useEffect(() => {
+  //      setIsLoggedIn(true);
+  //      history.push("/");
+  //    }, [values]);
 
   React.useEffect(() => {
     setValues({})
