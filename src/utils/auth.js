@@ -17,6 +17,28 @@ export const register = ({ email, password }) => {
       })
 };
 
+// export const authorize = ({ email, password }) => {
+//   return fetch(`${BASE_URL}/signin`, {
+//     method: "POST",
+//     headers: {
+//       Accept: "application/json",
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({ email, password }),
+//   })
+//     .then((res) => res.json())
+//     .then((res) => {
+//       console.log(res);
+//         if (res.token) {
+//           console.log(res.token)
+//         localStorage.setItem("token", res.token);
+//         return res;
+//       } else {
+//         return;
+//       }
+//     });
+// };
+
 export const authorize = ({ email, password }) => {
   return fetch(`${BASE_URL}/signin`, {
     method: "POST",
@@ -26,17 +48,18 @@ export const authorize = ({ email, password }) => {
     },
     body: JSON.stringify({ email, password }),
   })
-    .then((res) => res.json())
-    .then((res) => {
-      console.log(res);
-        if (res.jwt) {
-          console.log(res.jwt)
-        localStorage.setItem("jwt", res.jwt);
-        return res;
-      } else {
-        return;
+    .then((response) => response.json())
+      .then((data) => {
+          console.log(data);
+      // does data have a jwt in it?
+      if (data.token) {
+        // if so, save it to local storage and return data
+        // don't worry about this line now -- it will be explained soon
+        localStorage.setItem("token", data.token);
+        return data;
       }
-    });
+    })
+    .catch((err) => console.log(err));
 };
 
 

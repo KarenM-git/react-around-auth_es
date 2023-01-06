@@ -1,32 +1,36 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from "react-router-dom";
 
-function Login({onSubmit, setIsLoggedIn}) {
+function Login({ onSubmit, setIsLoggedIn }) {
 
-    const [values, setValues] = useState({
-      email: "",
-      password: "",
-    });
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+  });
   const history = useHistory();
 
-   const handleChange = (event) => {
+  const handleChange = (event) => {
     
      
-     const { name, value } = event.target;
-     setValues({ ...values, [name]: value });
+    const { name, value } = event.target;
+    setValues({ ...values, [name]: value });
     
-    };
+  };
 
-   const handleSubmit = (evt) => {
-     evt.preventDefault();
-     console.log(values);
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    console.log(values);
     onSubmit(values);
   };
 
-  // React.useEffect(() => {
-  //      setIsLoggedIn(true);
-  //      history.push("/");
-  //    }, [values]);
+  React.useEffect(() => {
+       setIsLoggedIn(true);
+       history.push("/");
+     }, [values]);
+
+  React.useEffect(() => {
+    setValues({})
+  }, [setIsLoggedIn])
 
   
   return (
@@ -67,3 +71,4 @@ function Login({onSubmit, setIsLoggedIn}) {
 }
 
 export default Login;
+
