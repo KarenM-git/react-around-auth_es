@@ -25,16 +25,11 @@ export const authorize = ({ email, password }) => {
       'Accept': "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ email, password}),
   })
     .then((response) => response.json())
       .then((data) => {
-          console.log(data);
-      // does data have a jwt in it?
-      if (data.token) {
-        // if so, save it to local storage and return data
-        // don't worry about this line now -- it will be explained soon
-        localStorage.setItem("token", data.token);
+        if (data.token) {
         return data;
       }
     })

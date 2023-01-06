@@ -20,7 +20,7 @@ function Header({onLogout, userData}) {
       {pathname === "/" && (
         <div className='header__info'>
           <span className='header__text'> { userData.email}</span>
-          <button className='header__bttn' onSubmit={onLogout}>
+          <button className='header__bttn' onClick={onLogout}>
             Log Out
           </button>
         </div>

@@ -17,21 +17,22 @@ import api from "../utils/api.js";
 import * as auth from "../utils/auth.js";
 
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
-import { useEffect } from "react";
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
-  const [userData, setUserData] = React.useState('');
+  const [userData, setUserData] = React.useState({}); 
+  
 
   React.useEffect(() => {
+    
      if (localStorage.getItem("token")) {
        const token = localStorage.getItem("token");
        auth.getContent(token).then((res) => {
          if (res) {
+           console.log(res);
            setIsLoggedIn(true);
            history.push("/");
-           setUserData(res);
-           console.log(userData);
+           setUserData({ ...res.data });
          }
        });
      }
@@ -179,12 +180,12 @@ function App() {
      auth
        .authorize({ email, password } )
        .then((res) => {
-        
-        console.log(res.token);
          if (res.token) {
            setValues({ email: '', password: '' })
            setIsLoggedIn(true);
            history.push('/');
+           localStorage.setItem("token", res.token);
+           
          }
        })
        .catch((err) => console.log(err));
@@ -192,7 +193,6 @@ function App() {
 
 
   function signOut(evt) {
-    console.log(localStorage.getItem('token'));
     evt.preventDefault();
     localStorage.removeItem("token");
     history.push('/signin');
