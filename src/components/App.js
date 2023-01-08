@@ -1,5 +1,5 @@
 import React  from "react";
-import { Route, Switch, useHistory, Redirect } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 
 import Header from "./Header.js";
 import Main from "./Main.js";
@@ -22,7 +22,10 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [userData, setUserData] = React.useState({});
   
-  function checkToken() {
+
+const history = useHistory();
+  React.useEffect(() => {
+    
     if (localStorage.getItem("token")) {
       const token = localStorage.getItem("token");
       auth.getContent(token).then((res) => {
@@ -33,12 +36,8 @@ function App() {
         }
       });
     }
-  };
-
-  React.useEffect(() => {
-     checkToken();
      
-  }, []);
+  }, [history]);
   React.useEffect(() => {
     
     api
@@ -51,7 +50,7 @@ function App() {
       });
   }, []);
 
-  const history = useHistory();
+  
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
     React.useState(false);
