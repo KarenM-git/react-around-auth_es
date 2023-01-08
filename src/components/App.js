@@ -184,7 +184,10 @@ function App() {
           localStorage.setItem("token", res.token);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setIsInfoTooltipOpen(true);
+      });
   }
 
   function signOut(evt) {
