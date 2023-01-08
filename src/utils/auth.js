@@ -10,7 +10,6 @@ export const register = ({ email, password }) => {
     })
       .then((res) => res.json())
       .then((res) => {
-          console.log(res)
         if (res.error) {
           throw new Error(res.error);
         }

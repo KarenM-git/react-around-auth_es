@@ -29,7 +29,7 @@ function Login({ onSubmit }) {
 
   return (
     <div className='auth'>
-      <h2 className='auth__title'>Log in</h2>
+      <h2 className='auth__title'>Iniciar Sesión</h2>
       <form className='auth__form' onSubmit={handleSubmit}>
         <div className='auth__input-container'>
           <input
@@ -53,10 +53,10 @@ function Login({ onSubmit }) {
             value={values.password || ""}
           />
         </div>
-        <button className='auth__button'>Log in</button>
+        <button type='submit' className='auth__button'>Iniciar Sesión</button>
       </form>
       <Link to='/signup' className='auth__link'>
-        Not a member yet? Sign up here!
+        ¿No eres miembro? Registrate aqui!
       </Link>
     </div>
   );

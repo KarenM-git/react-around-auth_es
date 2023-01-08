@@ -21,8 +21,8 @@ function Register({onSubmit}) {
 
   return (
     <div className='auth'>
-      <h2 className='auth__title'>Sign up</h2>
-      <form className='auth__form' onClick={handleSubmit}>
+      <h2 className='auth__title'>Registrarse</h2>
+      <form className='auth__form' onSubmit={handleSubmit}>
         <div className='auth__input-container'>
           <input
             type='email'
@@ -45,10 +45,10 @@ function Register({onSubmit}) {
             values={values.password}
           />
         </div>
-        <button className='auth__button'>Sign up</button>
+        <button type='submit' className='auth__button'>Registrarse</button>
       </form>
       <Link to='/signin' className='auth__link'>
-        Alredy a member? Log in here!
+        ¿Eres miembro? Inicia Sesión aquí!
       </Link>
     </div>
   );

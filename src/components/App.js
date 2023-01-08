@@ -1,5 +1,5 @@
 import React  from "react";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory, Redirect } from "react-router-dom";
 
 import Header from "./Header.js";
 import Main from "./Main.js";
@@ -20,22 +20,24 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
-  const [userData, setUserData] = React.useState({}); 
+  const [userData, setUserData] = React.useState({});
   
+  function checkToken() {
+    if (localStorage.getItem("token")) {
+      const token = localStorage.getItem("token");
+      auth.getContent(token).then((res) => {
+        if (res) {
+          setIsLoggedIn(true);
+          history.push("/");
+          setUserData({ ...res.data });
+        }
+      });
+    }
+  };
 
   React.useEffect(() => {
-    
-     if (localStorage.getItem("token")) {
-       const token = localStorage.getItem("token");
-       auth.getContent(token).then((res) => {
-         if (res) {
-           console.log(res);
-           setIsLoggedIn(true);
-           history.push("/");
-           setUserData({ ...res.data });
-         }
-       });
-     }
+     checkToken();
+     
   }, []);
   React.useEffect(() => {
     
@@ -64,9 +66,14 @@ function App() {
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
 
   React.useEffect(() => {
-    api.getInitialCards().then((res) => {
-      setCards([...res]);
-    });
+    api
+      .getInitialCards()
+      .then((res) => {
+        setCards([...res]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   function closeAllPopups() {

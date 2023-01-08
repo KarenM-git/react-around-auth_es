@@ -9,19 +9,19 @@ function Header({onLogout, userData}) {
       <img src={logo} className='header__logo' alt='around the U.S. logo' />
       {pathname === "/signin" && (
         <Link className='header__text' to='/signup'>
-          Sign up
+          Registrarse
         </Link>
       )}
       {pathname === "/signup" && (
         <Link to='/signin' className='header__text'>
-          Log in
+          Iniciar Sesión
         </Link>
       )}
       {pathname === "/" && (
         <div className='header__info'>
           <span className='header__text'> { userData.email}</span>
           <button className='header__bttn' onClick={onLogout}>
-            Log Out
+            Cerrar Sesión
           </button>
         </div>
       )}
