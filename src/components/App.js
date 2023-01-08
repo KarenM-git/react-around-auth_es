@@ -25,7 +25,6 @@ function App() {
 
 const history = useHistory();
   React.useEffect(() => {
-    
     if (localStorage.getItem("token")) {
       const token = localStorage.getItem("token");
       auth.getContent(token).then((res) => {
@@ -36,8 +35,8 @@ const history = useHistory();
         }
       });
     }
-     
-  }, [history]);
+    // eslint-disable-next-line
+  }, []);
   React.useEffect(() => {
     
     api
