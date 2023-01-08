@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
 
 import Header from "./Header.js";
@@ -21,9 +21,9 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [userData, setUserData] = React.useState({});
-  
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const history = useHistory();
 
-const history = useHistory();
   React.useEffect(() => {
     if (localStorage.getItem("token")) {
       const token = localStorage.getItem("token");
@@ -35,10 +35,9 @@ const history = useHistory();
         }
       });
     }
-    // eslint-disable-next-line
-  }, []);
+  }, [history]); 
+
   React.useEffect(() => {
-    
     api
       .getUserData()
       .then((res) => {
@@ -49,8 +48,6 @@ const history = useHistory();
       });
   }, []);
 
-  
-
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
     React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -59,7 +56,6 @@ const history = useHistory();
   const [selectedCard, setSelectedCard] = React.useState(0);
   const [cards, setCards] = React.useState([]);
 
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [isRegistered, setIsRegistered] = React.useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
 
@@ -159,8 +155,6 @@ const history = useHistory();
       });
   }
 
-
-
   function handleRegister(values) {
     auth
       .register(values)
@@ -173,40 +167,36 @@ const history = useHistory();
       })
       .finally(() => {
         setIsInfoTooltipOpen(true);
-      })
-  };
-
-  
+      });
+  }
 
   function handleLogin({ email, password }, setValues) {
-     if (!email || !password) {
-       return;
-     }
-     auth
-       .authorize({ email, password } )
-       .then((res) => {
-         if (res.token) {
-           setValues({ email: '', password: '' })
-           setIsLoggedIn(true);
-           history.push('/');
-           localStorage.setItem("token", res.token);
-           
-         }
-       })
-       .catch((err) => console.log(err));
-  };
-
+    if (!email || !password) {
+      return;
+    }
+    auth
+      .authorize({ email, password })
+      .then((res) => {
+        if (res.token) {
+          setValues({ email: "", password: "" });
+          setIsLoggedIn(true);
+          history.push("/");
+          localStorage.setItem("token", res.token);
+        }
+      })
+      .catch((err) => console.log(err));
+  }
 
   function signOut(evt) {
     evt.preventDefault();
     localStorage.removeItem("token");
-    history.push('/signin');
-  };
+    history.push("/signin");
+  }
 
   return (
     <div className='page'>
       <CurrentUserContext.Provider value={currentUser}>
-        <Header onLogout={signOut} userData={ userData} />
+        <Header onLogout={signOut} userData={userData} />
         <Switch>
           <Route path='/signup'>
             <Register onSubmit={handleRegister} />
